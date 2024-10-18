@@ -1,0 +1,14 @@
+.footer {
+  margin: auto;
+  padding-bottom: 60px;
+  width: 104px;
+  height: 16px;
+  top: 1340px;
+  left: 668px;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: left;
+  color: rgba(33, 33, 33, 0.7);
+}
