@@ -1,9 +1,28 @@
-# Spots - A photo sharing application
+# **Spots**
 
-## Description
+A dynamic web-based photo-sharing platform.
 
-## Tech Stack
+## **Description**
 
-## Photos
+Spots is an intuitive, web-based photo-sharing application where users can upload photos and share them with others. Visitors to a user’s profile can view and like their photos, providing a simple yet interactive social experience. The application is built using a combination of HTML and CSS, with a focus on clean, responsive design.
 
-## Link to Github
+## **Project Features**
+
+- **HTML & CSS**: Structure and style your web experience with modern web technologies.
+- **Flexbox & Grid**: Efficiently manage layouts for a seamless user interface.
+- **Responsive Design**: Optimized for various devices, from desktop to mobile, ensuring an adaptable experience across screen sizes.
+
+## **Photos**
+
+![Van Thorens](./images/demo/bridge.png)
+![Van Thorens](./images/demo/cafe.png)
+![Van Thorens](./images/demo/house.png)
+![Van Thorens](./images/demo/Restaurant.png)
+![Van Thorens](./images/demo/tunnel.png)
+![Van Thorens](./images/demo/Van%20Thorens.png)
+
+## **Deployment**
+
+This webpage is hosted using GitHub Pages for easy access and sharing.
+
+- Live Demo:
