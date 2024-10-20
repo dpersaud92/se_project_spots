@@ -26,3 +26,9 @@ Spots is an intuitive, web-based photo-sharing application where users can uploa
 This webpage is hosted using GitHub Pages for easy access and sharing.
 
 - [**Click** for Live Demo](https://dpersaud92.github.io/se_project_spots/)
+
+## **Video**
+
+Here is a video of the project **Spots**
+
+<video controls src="https://www.dropbox.com/scl/fi/s4idka96f6ymq8dbgqi9d/Spots.mp4?rlkey=k1i5nto59lbacp3ab4c99bb9j&st=cd589t10&dl=0" title="Click Here:"></video>
