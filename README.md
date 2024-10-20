@@ -29,4 +29,4 @@ This webpage is hosted using GitHub Pages for easy access and sharing.
 
 ## **Video**
 
-Here is a video of the project [**Spots**](https://drive.google.com/file/d/1cstJ2W2w0RV8OMFxZNwNS2cz7okD0fFY/view?usp=drive_link)
+Here is a video of the project [**Spots**](https://drive.google.com/file/d/1nMPaKTU9-SSFOlTvIeGL18hLl8jmNwtU/view?usp=drive_link)
