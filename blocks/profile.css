@@ -25,6 +25,7 @@
   line-height: 32px;
   text-align: left;
   color: rgba(33, 33, 33, 1);
+  align-items: center;
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
@@ -51,13 +52,10 @@
 .profile__edit-btn {
   display: flex;
   align-items: center;
-  margin: 114px 0 20px 0;
-  width: 107.34px;
-  height: 16px;
+  margin-top: auto;
   padding: 0;
   gap: 8px;
   border: none;
-  border-radius: 90px 0px 0px 0px;
   opacity: 0.7;
   background-color: transparent;
   color: rgba(33, 33, 33, 1);
@@ -70,13 +68,16 @@
 
 .profile__edit-btn:hover {
   opacity: 1;
+  cursor: pointer;
 }
 
 .profile__add-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 138px 0 20px auto;
+  padding: 0;
+  margin-left: auto;
+  align-self: end;
   width: 157px;
   height: 52px;
   border-radius: 8px;
@@ -92,6 +93,7 @@
 
 .profile__add-btn:hover {
   background-color: rgba(33, 33, 33, 0.8);
+  cursor: pointer;
 }
 
 @media screen and (max-width: 627px) {
@@ -111,8 +113,6 @@
 
   .profile__name {
     max-width: 288px;
-    align-items: center;
-    text-align: center;
     line-height: 20px;
     font-size: 20px;
     margin: 12px 0 0 0;
