@@ -39,6 +39,7 @@
   background-image: url(../images/close.svg);
   opacity: 0.4;
   border: none;
+  cursor: pointer;
 }
 
 .modal__title {
