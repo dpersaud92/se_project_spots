@@ -1,9 +1,15 @@
 .page {
   background-color: #fcf5e5;
   min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
 }
 
 .page__section {
   max-width: 1280px;
   margin: 0 auto;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-sizing: border-box;
 }

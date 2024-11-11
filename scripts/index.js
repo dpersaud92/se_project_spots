@@ -40,7 +40,7 @@ const editModalCloseButton =
   editProfileModal.querySelector(".modal__close-btn");
 
 const cardTemplate = document.querySelector("#card-template").content;
-const cardsContainer = document.querySelector(".cards__list");
+const cardsContainer = document.querySelector(".cards");
 
 function openModal() {
   nameInput.value = profileName.textContent;
