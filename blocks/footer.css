@@ -12,3 +12,9 @@
 .footer__text {
   margin: 0;
 }
+
+@media screen and (max-width: 320px) {
+  .footer {
+    margin-top: 60px;
+  }
+}

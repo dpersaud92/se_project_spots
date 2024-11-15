@@ -9,8 +9,10 @@
   margin-bottom: 60px;
 }
 
-@media screen and (max-width: 627px) {
+@media screen and (max-width: 320px) {
   .cards {
+    padding-bottom: 20px;
+    margin: 0;
     row-gap: 20px;
     grid-template-columns: repeat(auto-fit, 288px);
   }

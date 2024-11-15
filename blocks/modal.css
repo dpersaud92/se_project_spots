@@ -43,6 +43,10 @@
   background-size: cover;
   opacity: 0.4;
   border: none;
+}
+
+.modal__close-btn:hover {
+  opacity: 1;
   cursor: pointer;
 }
 
@@ -68,10 +72,16 @@
   color: rgba(33, 33, 33, 1);
   border-radius: 8px;
   border: 1px solid rgba(33, 33, 33, 0.4);
+  opacity: 1;
 }
 
 .modal__input:hover {
   cursor: pointer;
+  border: 1px solid rgba(33, 33, 33, 1);
+}
+
+.modal__input::placeholder {
+  color: rgba(33, 33, 33, 0.4);
 }
 
 .modal__submit-btn {

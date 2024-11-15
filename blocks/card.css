@@ -9,9 +9,9 @@
 
 .card__content {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   gap: 8px;
+  width: 100%;
 }
 
 .card__title {
@@ -25,7 +25,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 320px;
+  max-width: calc(100% - 32px);
 }
 
 .card__like-button {
@@ -42,7 +42,12 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 627px) {
+@media screen and (max-width: 320px) {
+  .card__content {
+    max-width: 288px;
+    max-height: 318px;
+  }
+
   .card__image {
     width: 288px;
     height: 288px;
@@ -51,9 +56,14 @@
   .card__title {
     font-family: Poppins;
     font-size: 16px;
-    font-weight: 500;
     line-height: 16px;
-    text-align: left;
-    justify-content: space-between;
+    max-width: calc(100% - 30px);
+  }
+
+  .card__like-button {
+    padding: 0;
+    margin: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 }

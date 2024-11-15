@@ -30,6 +30,7 @@
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 
@@ -46,6 +47,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 
@@ -96,7 +98,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 627px) {
+@media screen and (max-width: 320px) {
   .profile {
     flex-direction: column;
     max-width: 288px;
@@ -136,5 +138,6 @@
     width: 288px;
     margin: 0;
     justify-content: center;
+    align-self: center;
   }
 }
