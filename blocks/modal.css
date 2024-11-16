@@ -28,7 +28,13 @@
   box-sizing: border-box;
   border-radius: 8px;
   padding: 36px 50px 32px;
-  margin: 0 10px;
+  margin: 0;
+}
+
+.modal__title {
+  margin: 0;
+  font-size: 32px;
+  line-height: 32px;
 }
 
 .modal__close-btn {
@@ -50,11 +56,8 @@
   cursor: pointer;
 }
 
-.modal__title {
-  margin: 0 0 32px;
-  font-size: 32px;
-  line-height: 32px;
-  text-align: left;
+.modal__form {
+  margin-top: 32px;
 }
 
 .modal__label {
@@ -88,12 +91,10 @@
   width: 156px;
   height: 52px;
   border: none;
-  padding: 18px 32px;
   gap: 8px;
-  background-image: url(../images/submit.svg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: inline-block;
+  background: rgba(33, 33, 33, 1);
+  color: #fff;
+  border-radius: 8px;
 }
 
 .modal__submit-btn:hover {
@@ -118,6 +119,12 @@
     line-height: 24px;
   }
 
+  .modal__close-btn {
+    top: 4px;
+    right: 3px;
+    padding: 0;
+  }
+
   .modal__label {
     margin-bottom: 24px;
     font-size: 16px;
@@ -131,8 +138,6 @@
 
   .modal__submit-btn {
     width: 100%;
-    background-size: 100%;
-    background-position: center;
-    border-radius: 8px;
+    padding: 0;
   }
 }
