@@ -100,8 +100,9 @@ const createCardElement = (data) => {
     likeButton.classList.toggle("card__like-button_active");
   });
 
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
+  deleteButton.addEventListener("click", (event) => {
+    const card = event.target.closest(".card");
+    if (card) card.remove();
   });
 
   cardImage.addEventListener("click", () => {
