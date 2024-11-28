@@ -53,8 +53,8 @@
       </footer>
 
       <div class="modal" id="edit-profile-modal">
-        <div class="modal__container">
-          <button type="button" class="modal__close-btn"></button>
+        <div class="modal__content">
+          <button type="button" class="modal__close"></button>
           <h2 class="modal__title">Edit Profile</h2>
           <form name="edit-profile" class="modal__form">
             <label for="profile-name-input" class="modal__label">
@@ -81,8 +81,8 @@
       </div>
 
       <div class="modal" id="add-card-modal">
-        <div class="modal__container">
-          <button type="button" class="modal__close-btn"></button>
+        <div class="modal__content">
+          <button type="button" class="modal__close"></button>
           <h2 class="modal__title">New Post</h2>
           <form name="new-post" class="modal__form" id="add-card-form">
             <label for="add-card-link-input" class="modal__label">
@@ -110,8 +110,12 @@
     </div>
 
     <div class="modal" id="preview-modal">
-      <div class="modal__container preview-modal__container">
-        <button type="button" class="modal__preview_close-btn"></button>
+      <div class="modal__content modal__content_type-preview">
+        <button
+          aria-label="Close modal"
+          type="button"
+          class="modal__close modal__close_type_preview"
+        ></button>
         <img src="" alt="" class="modal__image" />
         <p class="modal__caption"></p>
       </div>
