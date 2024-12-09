@@ -114,7 +114,7 @@ const handleCardFormSubmit = (evt) => {
   const cardLink = selectors.cardForm.querySelector(
     "#add-card-link-input"
   ).value;
-  renderCard({ name: cardName, link: cardLink }, "append");
+  renderCard({ name: cardName, link: cardLink }, "prepend");
   closeModal(selectors.cardModal);
   selectors.cardForm.reset();
 };
@@ -153,6 +153,21 @@ selectors.previewModal.addEventListener("click", (event) => {
     .querySelector(".modal__close")
     .addEventListener("click", () => closeModal(modal));
 });
+
+// Add functionality to close modals by clicking the overlay
+document.querySelectorAll(".modal").forEach((modal) => {
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeModal(modal);
+  });
+});
+
+// Add functionality to close modals with the Escape key
+const handleEscapeKey = (event) => {
+  if (event.key === "Escape") {
+    const openModal = document.querySelector(".modal_opened");
+    if (openModal) closeModal(openModal);
+  }
+};
 
 // Initialize application
 renderInitialCards();
