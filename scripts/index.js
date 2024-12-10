@@ -49,6 +49,20 @@ const selectors = {
   previewCaption: document.querySelector(".modal__caption"),
 };
 
+// Handle card form submission
+const handleCardFormSubmit = (evt) => {
+  evt.preventDefault();
+  const cardName = selectors.cardForm.querySelector(
+    "#add-card-name-input"
+  ).value;
+  const cardLink = selectors.cardForm.querySelector(
+    "#add-card-link-input"
+  ).value;
+  renderCard({ name: cardName, link: cardLink }, "prepend");
+  closeModal(selectors.cardModal);
+  selectors.cardForm.reset();
+};
+
 // Utility functions for modals
 const openModal = (modal) => modal.classList.add("modal_opened");
 const closeModal = (modal) => modal.classList.remove("modal_opened");
@@ -105,20 +119,6 @@ const handleProfileFormSubmit = (evt) => {
   closeModal(selectors.editProfileModal);
 };
 
-// Handle card form submission
-const handleCardFormSubmit = (evt) => {
-  evt.preventDefault();
-  const cardName = selectors.cardForm.querySelector(
-    "#add-card-name-input"
-  ).value;
-  const cardLink = selectors.cardForm.querySelector(
-    "#add-card-link-input"
-  ).value;
-  renderCard({ name: cardName, link: cardLink }, "prepend");
-  closeModal(selectors.cardModal);
-  selectors.cardForm.reset();
-};
-
 // Render initial cards
 const renderInitialCards = () => {
   initialCards.forEach((card) => renderCard(card, "append"));
@@ -166,6 +166,20 @@ const handleEscapeKey = (event) => {
   if (event.key === "Escape") {
     const openModal = document.querySelector(".modal_opened");
     if (openModal) closeModal(openModal);
+  }
+};
+
+// Open a modal and add the Escape key event listener
+const escKeyOpen = (modal) => {
+  modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscapeKey); // Add listener when modal opens
+};
+
+// Close a modal and remove the Escape key event listener
+const escKeyClose = (modal) => {
+  modal.classList.remove("modal_opened");
+  if (!document.querySelector(".modal_opened")) {
+    document.removeEventListener("keydown", handleEscapeKey); // Remove listener when no modals are open
   }
 };
 
