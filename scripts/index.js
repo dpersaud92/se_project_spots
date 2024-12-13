@@ -1,3 +1,23 @@
+const openModal = (modal) => {
+  modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscapeKey); // Add listener when a modal is opened
+};
+
+const closeModal = (modal) => {
+  modal.classList.remove("modal_opened");
+  if (!document.querySelector(".modal_opened")) {
+    document.removeEventListener("keydown", handleEscapeKey); // Remove listener when no modals are open
+  }
+};
+
+// Handle Escape key for closing modals
+const handleEscapeKey = (event) => {
+  if (event.key === "Escape") {
+    const openModal = document.querySelector(".modal_opened");
+    if (openModal) closeModal(openModal);
+  }
+};
+
 // Initial card data
 const initialCards = [
   {
@@ -62,10 +82,6 @@ const handleCardFormSubmit = (evt) => {
   closeModal(selectors.cardModal);
   selectors.cardForm.reset();
 };
-
-// Utility functions for modals
-const openModal = (modal) => modal.classList.add("modal_opened");
-const closeModal = (modal) => modal.classList.remove("modal_opened");
 
 // Function to create a card element
 const createCardElement = ({ name, link }) => {
@@ -160,28 +176,6 @@ document.querySelectorAll(".modal").forEach((modal) => {
     if (event.target === modal) closeModal(modal);
   });
 });
-
-// Add functionality to close modals with the Escape key
-const handleEscapeKey = (event) => {
-  if (event.key === "Escape") {
-    const openModal = document.querySelector(".modal_opened");
-    if (openModal) closeModal(openModal);
-  }
-};
-
-// Open a modal and add the Escape key event listener
-const escKeyOpen = (modal) => {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keydown", handleEscapeKey); // Add listener when modal opens
-};
-
-// Close a modal and remove the Escape key event listener
-const escKeyClose = (modal) => {
-  modal.classList.remove("modal_opened");
-  if (!document.querySelector(".modal_opened")) {
-    document.removeEventListener("keydown", handleEscapeKey); // Remove listener when no modals are open
-  }
-};
 
 // Initialize application
 renderInitialCards();

@@ -73,12 +73,5 @@ const enableValidation = (config) => {
   formList.forEach((formEl) => setEventListeners(formEl, config));
 };
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    const openModal = document.querySelector(".modal_opened");
-    if (openModal) closeModal(openModal);
-  }
-});
-
 // Initialize validation
 enableValidation(settings);
