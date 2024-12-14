@@ -1,13 +1,11 @@
 const openModal = (modal) => {
   modal.classList.add("modal_opened");
-  document.addEventListener("keydown", handleEscapeKey); // Add listener when a modal is opened
+  document.addEventListener("keydown", handleEscapeKey);
 };
 
 const closeModal = (modal) => {
   modal.classList.remove("modal_opened");
-  if (!document.querySelector(".modal_opened")) {
-    document.removeEventListener("keydown", handleEscapeKey); // Remove listener when no modals are open
-  }
+  document.removeEventListener("keydown", handleEscapeKey);
 };
 
 // Handle Escape key for closing modals
@@ -72,16 +70,49 @@ const selectors = {
 // Handle card form submission
 const handleCardFormSubmit = (evt) => {
   evt.preventDefault();
+
+  // Handle card form submission
   const cardName = selectors.cardForm.querySelector(
     "#add-card-name-input"
   ).value;
   const cardLink = selectors.cardForm.querySelector(
     "#add-card-link-input"
   ).value;
+
   renderCard({ name: cardName, link: cardLink }, "prepend");
+
   closeModal(selectors.cardModal);
+
   selectors.cardForm.reset();
+
+  resetValidation(selectors.cardForm, settings);
 };
+
+const enableSaveButton = () => {
+  const saveButton = selectors.cardForm.querySelector(".save-button");
+  const cardName = selectors.cardForm.querySelector(
+    "#add-card-name-input"
+  ).value;
+  const cardLink = selectors.cardForm.querySelector(
+    "#add-card-link-input"
+  ).value;
+
+  saveButton.disabled = !(cardName && cardLink); // Enable if inputs are non-empty
+};
+
+// Reset the save button state after form reset
+const resetFormAndButton = (form) => {
+  form.reset();
+  resetValidation(form, settings); // Resets both input errors and button state
+};
+
+// Add event listeners for form inputs
+selectors.cardForm
+  .querySelector("#add-card-name-input")
+  .addEventListener("input", enableSaveButton);
+selectors.cardForm
+  .querySelector("#add-card-link-input")
+  .addEventListener("input", enableSaveButton);
 
 // Function to create a card element
 const createCardElement = ({ name, link }) => {
@@ -151,9 +182,10 @@ selectors.profileEditButton.addEventListener("click", () => {
   resetValidation(selectors.profileForm, settings);
 });
 
-selectors.cardAddButton.addEventListener("click", () =>
-  openModal(selectors.cardModal)
-);
+selectors.cardAddButton.addEventListener("click", () => {
+  openModal(selectors.cardModal);
+  resetValidation(selectors.cardForm, settings); // Reset input errors and button state
+});
 
 selectors.previewModal.addEventListener("click", (event) => {
   if (event.target === selectors.previewModal)
