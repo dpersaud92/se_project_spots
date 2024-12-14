@@ -89,7 +89,8 @@ const handleCardFormSubmit = (evt) => {
 };
 
 const enableSaveButton = () => {
-  const saveButton = selectors.cardForm.querySelector(".save-button");
+  const saveButton = selectors.cardForm.querySelector(".modal__submit-btn");
+
   const cardName = selectors.cardForm.querySelector(
     "#add-card-name-input"
   ).value;
@@ -97,7 +98,11 @@ const enableSaveButton = () => {
     "#add-card-link-input"
   ).value;
 
-  saveButton.disabled = !(cardName && cardLink); // Enable if inputs are non-empty
+  if (saveButton) {
+    saveButton.disabled = !(cardName && cardLink); // Enable if inputs are non-empty
+  } else {
+    console.error("Save button not found in the form.");
+  }
 };
 
 // Reset the save button state after form reset
