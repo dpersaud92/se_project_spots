@@ -39,6 +39,10 @@ const hasInvalidInput = (inputList) =>
   inputList.some((input) => !input.validity.valid);
 
 const toggleButtonState = (inputList, buttonEl, config) => {
+  if (!buttonEl) {
+    console.error("Button element not found for toggleButtonState.");
+    return;
+  }
   if (hasInvalidInput(inputList)) {
     buttonEl.disabled = true;
     buttonEl.classList.add(config.inactiveButtonClass);
