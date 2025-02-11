@@ -6,6 +6,8 @@ import {
   toggleButtonState,
 } from "../scripts/validation.js";
 import Api from "../utils/API.js";
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 
 // Import images
 import logoSrc from "../images/Logo.svg";
@@ -64,7 +66,7 @@ const selectors = {
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "c16e16d6-257f-4d48-ba25-11e7e07c89e9",
+    authorization: "0a538e6a-979b-4ca4-9dcf-317e65aa9995",
     "Content-Type": "application/json",
   },
 });

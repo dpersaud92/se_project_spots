@@ -21,7 +21,7 @@ module.exports = {
     liveReload: true,
     hot: false,
   },
-  target: ["web", "es5"],
+  target: ["web"],
   module: {
     rules: [
       {
