@@ -25,7 +25,7 @@ const hideInputError = (formEl, inputEl, config) => {
   inputEl.classList.remove(config.inputErrorClass);
 };
 
-const checkInputValidity = (formEl, inputEl, config) => {
+export const checkInputValidity = (formEl, inputEl, config) => {
   inputEl.validity.valid
     ? hideInputError(formEl, inputEl, config)
     : showInputError(formEl, inputEl, inputEl.validationMessage, config);
@@ -39,11 +39,10 @@ const toggleButtonState = (inputList, buttonEl, config) => {
     console.error("Button element not found for toggleButtonState.");
     return;
   }
-  buttonEl.disabled = hasInvalidInput(inputList);
-  buttonEl.classList.toggle(
-    config.inactiveButtonClass,
-    hasInvalidInput(inputList)
-  );
+
+  const isInvalid = inputList.some((input) => !input.validity.valid);
+  buttonEl.disabled = isInvalid;
+  buttonEl.classList.toggle(config.inactiveButtonClass, isInvalid);
 };
 
 const resetValidation = (formEl, config) => {

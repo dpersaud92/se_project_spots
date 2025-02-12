@@ -35,6 +35,17 @@ class Api {
     });
   }
 
+  // Add new card
+  addCard({ name, link }) {
+    return this._fetch("/cards", {
+      method: "POST",
+      body: JSON.stringify({ name, link }),
+    }).then((newCard) => {
+      console.log("Card added:", newCard); // Log the response to confirm it’s valid
+      return newCard;
+    });
+  }
+
   // Add like to a card
   addLike(cardId) {
     return this._fetch(`/cards/${cardId}/likes`, {
