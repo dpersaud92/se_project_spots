@@ -64,8 +64,9 @@ const selectors = {
   previewImage: document.querySelector(".modal__image"),
   previewCaption: document.querySelector(".modal__caption"),
   avatarModal: document.querySelector("#avatar-modal"),
-
   avatarPic: document.querySelector("#avatar-pic"),
+  deleteModal: document.querySelector("#delete-modal"),
+  cancelButton: document.querySelector(".modal__submit-btn--cancel"),
 };
 
 // ------------------- API INSTANCE -------------------
@@ -91,18 +92,25 @@ api
 
 // ------------------- FORM HANDLERS -------------------
 const resetFormAndButton = (form) => {
-  form.reset();
-  const inputList = Array.from(form.querySelectorAll(settings.inputSelector));
-  const submitButton = form.querySelector(settings.submitButtonSelector);
-  toggleButtonState(inputList, submitButton, settings);
-  resetValidation(form, settings);
+  if (form && typeof form.reset === "function") {
+    form.reset();
+    const inputList = [...form.querySelectorAll(settings.inputSelector)];
+    const submitButton = form.querySelector(settings.submitButtonSelector);
+    toggleButtonState(inputList, submitButton, settings);
+    resetValidation(form, settings);
+  } else {
+    console.error("Invalid form element passed to resetFormAndButton.");
+  }
 };
 
 const handleAvatarFormSubmit = (evt) => {
   evt.preventDefault();
-  const avatarInput = document.querySelector("#profile-avatar-input").value;
-  const saveButton = avatarForm.querySelector(".modal__submit-btn");
+  const avatarInput = selectors.avatarModal.querySelector(
+    "#profile-avatar-input"
+  ).value;
+  const saveButton = selectors.avatarModal.querySelector(".modal__submit-btn");
   saveButton.textContent = "Saving...";
+  saveButton.disabled = true;
 
   api
     .updateUserAvatar({ avatar: avatarInput })
@@ -111,10 +119,12 @@ const handleAvatarFormSubmit = (evt) => {
       closeModal(selectors.avatarModal);
       resetFormAndButton(avatarForm);
     })
-    .catch((err) => console.error("Error updating avatar:", err))
+    .catch((err) => {
+      console.error("Error updating avatar:", err);
+      saveButton.disabled = false; // Re-enable on error
+    })
     .finally(() => {
       saveButton.textContent = "Save";
-      saveButton.disabled = true; // Disable the button until input is valid again
     });
 };
 
@@ -148,19 +158,23 @@ const handleCardFormSubmit = (evt) => {
     "#add-card-link-input"
   ).value;
   const saveButton = selectors.cardForm.querySelector(".modal__submit-btn");
+
   saveButton.textContent = "Saving...";
+  saveButton.disabled = true;
 
   api
     .addCard({ name: cardName, link: cardLink })
     .then((newCard) => {
       renderCard(newCard, "prepend");
       closeModal(selectors.cardModal);
-      resetFormAndButton(selectors.cardForm);
+      resetFormAndButton(selectors.cardForm); // Reset the correct form here
     })
-    .catch((err) => console.error("Error adding card:", err))
+    .catch((err) => {
+      console.error("Error adding card:", err);
+      saveButton.disabled = false; // Re-enable the button on error
+    })
     .finally(() => {
       saveButton.textContent = "Save";
-      saveButton.disabled = true; // Ensure the button is disabled after save
     });
 };
 
@@ -180,26 +194,29 @@ const handleDeleteCard = (cardElement, cardId) => {
 
 const handleDeleteSubmit = (event) => {
   event.preventDefault();
+  const deleteButton = event.target.querySelector(".modal__submit-btn--delete");
+  deleteButton.textContent = "Deleting...";
+  deleteButton.disabled = true;
+
   api
     .removeCard(selectedCardId)
     .then(() => {
       if (selectedCard instanceof HTMLElement) {
-        if (selectedCard instanceof HTMLElement) {
-          selectedCard.remove();
-        } else {
-          console.error(
-            "selectedCard is not a valid DOM element:",
-            selectedCard
-          );
-        }
-      } else {
-        console.error("selectedCard is not a DOM element:", selectedCard);
+        selectedCard.remove();
       }
       closeModal(deleteModal);
+      resetFormAndButton(deleteForm);
     })
-    .catch((err) => console.error("Error deleting card:", err));
+    .catch((err) => {
+      console.error("Error deleting card:", err);
+      deleteButton.disabled = false; // Re-enable on error
+    })
+    .finally(() => {
+      deleteButton.textContent = "Delete";
+    });
 };
 
+enableValidation(settings);
 // ------------------- CARD CREATION & RENDERING -------------------
 const createCardElement = ({
   name,
@@ -215,6 +232,7 @@ const createCardElement = ({
   const likeButton = cardElement.querySelector(".card__like-button");
   const likeCount = cardElement.querySelector(".card__like-count");
   const deleteButton = cardElement.querySelector(".card__delete-button");
+  const cancelButton = selectors.cancelButton;
 
   cardImage.src = link;
   cardImage.alt = name;
@@ -226,6 +244,8 @@ const createCardElement = ({
   } else {
     likeCount.textContent = 0;
   }
+
+  likeCount.remove();
 
   likeButton.addEventListener("click", () => {
     const isCurrentlyLiked = likeButton.classList.contains(
@@ -273,7 +293,8 @@ const renderCard = (item, method = "prepend") => {
 
 // ------------------- EVENT LISTENERS -------------------
 const avatarEditButton = document.querySelector(".profile__avatar-btn");
-const avatarForm = document.querySelector("#edit-avatar-form");
+const avatarForm = selectors.avatarModal.querySelector(".modal__form");
+
 const deleteForm = document.querySelector("#delete-card-form");
 
 avatarEditButton.addEventListener("click", () =>
@@ -292,6 +313,7 @@ selectors.cardAddButton.addEventListener("click", () =>
 );
 
 deleteForm.addEventListener("submit", handleDeleteSubmit);
+selectors.cancelButton.addEventListener("click", () => closeModal(deleteModal));
 
 // ------------------- MODAL CLOSE EVENTS -------------------
 document.addEventListener("DOMContentLoaded", () => {

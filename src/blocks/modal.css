@@ -195,7 +195,6 @@
   line-height: 24px;
   letter-spacing: 0%;
   text-align: center;
-  white-space: nowrap;
   overflow: visible;
   text-overflow: ellipsis;
 }
@@ -214,8 +213,8 @@
 }
 
 .modal__submit-btn--delete {
-  width: 156;
-  height: 52;
+  width: 156px;
+  height: 52px;
   border-radius: 8px;
   padding-top: 18px;
   padding-right: 32px;
@@ -287,5 +286,34 @@
     z-index: 10;
     opacity: 1;
     padding: 0;
+  }
+
+  .modal__content-delete {
+    width: 100vw;
+    padding: 12px;
+    border-radius: 8px;
+    max-width: 300px;
+  }
+
+  .modal__content-delete .modal__title {
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    overflow: visible;
+    text-overflow: ellipsis;
+  }
+
+  .modal__content-button {
+    display: grid;
+    justify-content: center;
+  }
+
+  .modal__submit-btn--delete,
+  .modal__submit-btn--cancel {
+    width: 156px;
+    height: 48px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 8px;
   }
 }
