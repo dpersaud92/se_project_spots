@@ -47,6 +47,10 @@ const handleEscapeKey = (event) => {
 
 // ------------------- SELECTORS -------------------
 
+const avatarInput = document.querySelector("#profile-avatar-input");
+const cardNameInput = document.querySelector("#add-card-name-input");
+const cardLinkInput = document.querySelector("#add-card-link-input");
+
 const selectors = {
   profileEditButton: document.querySelector(".profile__edit-btn"),
   cardAddButton: document.querySelector(".profile__add-btn"),
@@ -69,11 +73,17 @@ const selectors = {
   cancelButton: document.querySelector(".modal__submit-btn--cancel"),
 };
 
+const avatarSaveButton =
+  selectors.avatarModal.querySelector(".modal__submit-btn");
+const cardSaveButton = selectors.cardForm.querySelector(".modal__submit-btn");
+const profileSaveButton =
+  selectors.profileForm.querySelector(".modal__submit-btn");
+
 // ------------------- API INSTANCE -------------------
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "d19feaee-a024-4f2d-b0a9-cad223e76830",
+    authorization: "9f30f391-d4f2-4310-8bf1-91aea0358dfd",
     "Content-Type": "application/json",
   },
 });
@@ -91,12 +101,19 @@ api
   .catch(console.error);
 
 // ------------------- FORM HANDLERS -------------------
-const resetFormAndButton = (form) => {
+const resetFormAndButton = (form, submitButton = null) => {
   if (form && typeof form.reset === "function") {
     form.reset();
     const inputList = [...form.querySelectorAll(settings.inputSelector)];
-    const submitButton = form.querySelector(settings.submitButtonSelector);
-    toggleButtonState(inputList, submitButton, settings);
+    const button =
+      submitButton || form.querySelector(settings.submitButtonSelector);
+
+    if (!button) {
+      console.error("Submit button not found in resetFormAndButton.");
+      return;
+    }
+
+    toggleButtonState(inputList, button, settings);
     resetValidation(form, settings);
   } else {
     console.error("Invalid form element passed to resetFormAndButton.");
@@ -105,15 +122,13 @@ const resetFormAndButton = (form) => {
 
 const handleAvatarFormSubmit = (evt) => {
   evt.preventDefault();
-  const avatarInput = selectors.avatarModal.querySelector(
-    "#profile-avatar-input"
-  ).value;
+  const avatarUrl = avatarInput.value;
   const saveButton = selectors.avatarModal.querySelector(".modal__submit-btn");
   saveButton.textContent = "Saving...";
   saveButton.disabled = true;
 
   api
-    .updateUserAvatar({ avatar: avatarInput })
+    .updateUserAvatar({ avatar: avatarUrl })
     .then((updatedUserInfo) => {
       selectors.avatarPic.src = updatedUserInfo.avatar;
       closeModal(selectors.avatarModal);
@@ -121,8 +136,9 @@ const handleAvatarFormSubmit = (evt) => {
     })
     .catch((err) => {
       console.error("Error updating avatar:", err);
-      saveButton.disabled = false; // Re-enable on error
+      saveButton.disabled = false;
     })
+    .catch(console.error)
     .finally(() => {
       saveButton.textContent = "Save";
     });
@@ -151,30 +167,25 @@ const handleProfileFormSubmit = (evt) => {
 
 const handleCardFormSubmit = (evt) => {
   evt.preventDefault();
-  const cardName = selectors.cardForm.querySelector(
-    "#add-card-name-input"
-  ).value;
-  const cardLink = selectors.cardForm.querySelector(
-    "#add-card-link-input"
-  ).value;
-  const saveButton = selectors.cardForm.querySelector(".modal__submit-btn");
+  const cardName = cardNameInput.value;
+  const cardLink = cardLinkInput.value;
 
-  saveButton.textContent = "Saving...";
-  saveButton.disabled = true;
+  cardSaveButton.textContent = "Saving...";
+  cardSaveButton.disabled = true;
 
   api
     .addCard({ name: cardName, link: cardLink })
     .then((newCard) => {
       renderCard(newCard, "prepend");
       closeModal(selectors.cardModal);
-      resetFormAndButton(selectors.cardForm); // Reset the correct form here
+      resetFormAndButton(selectors.cardForm);
     })
     .catch((err) => {
       console.error("Error adding card:", err);
-      saveButton.disabled = false; // Re-enable the button on error
+      cardSaveButton.disabled = false;
     })
     .finally(() => {
-      saveButton.textContent = "Save";
+      cardSaveButton.textContent = "Save";
     });
 };
 
@@ -281,10 +292,6 @@ const openPreviewModal = (imageSrc, imageAlt) => {
 };
 
 const renderCard = (item, method = "prepend") => {
-  if (document.querySelector(`[data-id="${item._id}"]`)) {
-    console.log("Card already exists, skipping:", item._id);
-    return;
-  }
   const card = createCardElement(item);
   card.setAttribute("data-id", item._id); // Use data attribute to track the card
   console.log("Card element created:", card);
@@ -324,17 +331,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     modal.addEventListener("click", (event) => {
       if (event.target === modal) closeModal(modal);
-    });
-  });
-
-  document.querySelectorAll(".modal__input").forEach((input) => {
-    input.addEventListener("input", () => {
-      const form = input.closest("form");
-      const inputList = Array.from(
-        form.querySelectorAll(settings.inputSelector)
-      );
-      const submitButton = form.querySelector(settings.submitButtonSelector);
-      toggleButtonState(inputList, submitButton, settings);
     });
   });
 });

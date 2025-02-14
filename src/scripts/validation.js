@@ -37,7 +37,7 @@ const hasInvalidInput = (inputList) =>
 const toggleButtonState = (inputList, buttonEl, config) => {
   if (!buttonEl) {
     console.error("Button element not found for toggleButtonState.");
-    return;
+    return; // Exit early if the button is not found
   }
 
   const isInvalid = inputList.some((input) => !input.validity.valid);
@@ -47,12 +47,15 @@ const toggleButtonState = (inputList, buttonEl, config) => {
 
 const resetValidation = (formEl, config) => {
   const inputList = [...formEl.querySelectorAll(config.inputSelector)];
+  const submitButton = formEl.querySelector(config.submitButtonSelector);
+
+  if (!submitButton) {
+    console.error("Submit button not found in resetValidation.");
+    return;
+  }
+
   inputList.forEach((inputEl) => hideInputError(formEl, inputEl, config));
-  toggleButtonState(
-    inputList,
-    formEl.querySelector(config.submitButtonSelector),
-    config
-  );
+  toggleButtonState(inputList, submitButton, config);
 };
 
 const setEventListeners = (formEl, config) => {

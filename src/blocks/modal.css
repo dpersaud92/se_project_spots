@@ -204,7 +204,7 @@
   height: 40px;
   width: 40px;
   position: absolute;
-  top: 0;
+  top: -7px;
   right: -52.5px;
   z-index: 10;
   opacity: 1;
@@ -301,6 +301,19 @@
     text-align: center;
     overflow: visible;
     text-overflow: ellipsis;
+  }
+
+  .modal__content-delete .modal__close {
+    background-image: url(../images/Close\ Icon.svg);
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: -50px;
+    right: 4.5px;
+    z-index: 10;
+    opacity: 1;
+    padding: 0;
+    margin-left: 12px;
   }
 
   .modal__content-button {
